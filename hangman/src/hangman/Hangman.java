@@ -16,7 +16,7 @@ public class Hangman {
 		
 		System.out.println("lancelot and elaine are being kidnapped by the local zoo!\n"
 				+ "act quick to guess the padlock's combo while the zookeeper is chasing an escaped gorilla!\n\n"
-				+ "guess one letter at a time"
+				+ "guess one letter at a time OR guess the whole word!\n"
 				+ "(Hint: the zookeeper is a huge cyclone fan)\n");
 		String word = getWord();
 		//System.out.println(word);
@@ -40,9 +40,22 @@ public class Hangman {
 			allLettersGuessed[i] = false;
 		}
 		
+
+		
 		
 		while(!wordGuessed) {
-			System.out.println("\n\n\n\nguess a letter!");
+			
+			System.out.println("\n\n\nguessed letters: ");
+			for (int i = 0; i < 26; i++) {
+				if(allLettersGuessed[i] == true) {
+					System.out.print((char) (i + 97) + " ");
+
+				}
+			}
+			System.out.println("\n");
+
+			
+			System.out.println("guess a letter!");
 
 			for(int i = 0; i < word.length(); i++) {
 				
@@ -55,9 +68,27 @@ public class Hangman {
 			}
 			
 			System.out.println("\n");
+
+			String wordGuess = scan.nextLine();
 			
+			wordGuess = wordGuess.toLowerCase();
 			
-			char guess = Character.toLowerCase(scan.next().charAt(0));
+			//if the user guesses the whole word, they win.
+			if(wordGuess.length() > 1) {
+			if (wordGuess.equals(word)) {
+				System.out.println("\n\nthe combination was: " + word);
+				System.out.println("you saved Lancelot and Elaine!");
+				break;
+			}
+			else {
+				System.out.println(wordGuess + " was not the password :( try again!\n");
+				numTurns ++;
+				continue;
+			}
+			
+			}
+			
+			char guess = wordGuess.charAt(0);
 			
 			if(guess - 97 < 0 || guess - 97 > 25) {
 				System.out.println("there are only letters in this combo!");
